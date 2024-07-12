@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sm_exp/counter_provider.dart';
 
-class MyCounter extends StatefulWidget {
+class MyCounter extends StatelessWidget {
   const MyCounter({super.key});
 
-  @override
-  State<MyCounter> createState() => _MyCounterState();
-}
-
-class _MyCounterState extends State<MyCounter> {
-  int x = 0;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -19,13 +15,12 @@ class _MyCounterState extends State<MyCounter> {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                Text('Counter: $x'),
+                Text(
+                    'Counter: ${context.watch<CounterProvider>().getCounter()}'),
                 const SizedBox(height: 20),
                 OutlinedButton(
                   onPressed: () {
-                    setState(() {
-                      x++;
-                    });
+                    context.read<CounterProvider>().increment();
                   },
                   child: const Text('Click Me'),
                 ),
